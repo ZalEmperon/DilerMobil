@@ -1,0 +1,47 @@
+extends ../layout/base 
+block content
+	.container.mb-5
+		p.text-center.h1.fw-bold EDIT LIST CUSTOMER
+		form(role='form',method='post' action='/customers/edit/#{(id==undefined) ? data.id : id}')
+			.row
+				.col-xs-6
+					.box-body
+						- if (messages.msg_error) 
+							.alert.alert-danger.alert-dismissable 
+								button.close(type='button', data-dismiss='alert', aria-hidden='true') 
+									| ×
+								h4
+									i.icon.fa.fa-ban
+									| Alert! 
+								| !{messages.msg_error}
+						- if (messages.msg_info) 
+							.alert.alert-success.alert-dismissable 
+								button.close(type='button', data-dismiss='alert', aria-hidden='true') 
+									| ×
+								h4
+									i.icon.fa.fa-ban
+									| Success! 
+								| !{messages.msg_info}
+						.form-group.my-3
+							label
+								| Name
+							input(type='text',value="#{data.name}",name='name',placeholder='Enter Name', autofocus).form-control
+						.form-group.my-3
+							label
+								| Address
+							input(type='text',value="#{ (address == undefined) ? data.address : address }",name='address',placeholder='Enter address').form-control
+						.form-group.my-3
+							label
+								| Email
+							input(type='text',value="#{ (email == undefined) ? data.email : email }",name='email',placeholder='Enter Address').form-control
+						.form-group.my-3
+							label
+								| Phone
+							input(type='text',value="#{ (phone == undefined) ? data.phone : phone }",name='phone',placeholder='Enter Phone').form-control
+					.box-footer
+						input(type="hidden",name="_method", value="PUT")
+						button(type='submit').btn.btn-primary.me-3.my-2
+							i.fa.fa-pencil 
+							|  Edit
+						a(href='/customers/cs').btn.btn-primary.pull-right
+							| Back

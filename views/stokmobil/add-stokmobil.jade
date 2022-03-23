@@ -1,0 +1,41 @@
+extends ../layout/base
+block content
+  .container.mb-5
+    p.text-center.h1.fw-bold TAMBAH DATA
+    form(role='form',method='post' action='/stokmobil/add' enctype="multipart/form-data")
+      .row
+        .col-xs-6
+            .box-body
+                - if (messages.msg_error)
+                    .alert.alert-danger.alert-dismissable
+                        button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                            | ×
+                        h4
+                            i.icon.fa.fa-ban
+                            | Alert!
+                        | !{messages.msg_error}
+                .form-group.my-3
+                    label
+                        | Nama Mobil
+                    input(type='text',name='nama_mobil',placeholder='Masukan Mobil', autofocus, required).form-control
+                .form-group.my-3
+                    label
+                        | Jumlah Mobil 
+                    input(type='text',name='jumlah_mobil',placeholder='Masukan Jumlah', required).form-control
+                .form-group.my-3
+                    label
+                        | Tipe Mobil
+                    input(type='text',name='tipe_mobil',placeholder='Masukan Tipe', required).form-control
+                .form-group.my-3
+                    label
+                        | Harga Mobil
+                    input(type='text',name='harga_mobil',placeholder='Masukan Harga', required).form-control
+                .form-group.my-3
+                    label
+                        | Gambar Mobil
+                    input(type='file',name='gambar_mobil',placeholder='Masukan Gambar', required).form-control
+            .box-footer
+                button(type='submit').btn.btn-primary.me-3.my-2
+                    | Submit
+                a(href='/stokmobil').btn.btn-primary.pull-right
+                    | Back
