@@ -26,7 +26,7 @@ block content
 			i.fa.fa-search.text-center.pt-2.px-3
 			input#search.form-control.me-4(type='search' placeholder='Cari Mobil' name='hasil' aria-label='Search')
 		.modal#modalDetail.fade
-			.modal-dialog.modal-sm.modal-dialog-centered
+			.modal-dialog.modal-dialog-centered
 				#data-mobil.modal-content.border-0
 		.row
 			a.col-sm-2.m-2.col-3.py-2.rounded-3.shadow-sm.text-dark.fw-bold.kuning_gradien(href='/stokmobil/cari/Sedan') Sedan
@@ -34,7 +34,6 @@ block content
 			a.col-sm-2.m-2.col-2.py-2.rounded-3.shadow-sm.text-dark.fw-bold.kuning_gradien(href='/stokmobil/cari/SUV') SUV
 			a.col-sm-2.m-2.col-2.py-2.rounded-3.shadow-sm.text-dark.fw-bold.kuning_gradien(href='/stokmobil/cari/MPV') MPV
 			a.col-sm-3.m-2.col-3.py-2.rounded-3.shadow-sm.text-dark.fw-bold.kuning_gradien(href='/stokmobil/cari/OffRoad') OffRoad
-
 		.row
 			if messages.msg_error
 				| !{messages.msg_error}
@@ -56,7 +55,7 @@ block content
 									if session_store.is_login
 										a(href='/stokmobil/edit/#{row.id}').btn.btn-primary.col-sm-11.col-11.mt-2 Edit | 
 											i.fa-solid.fa-pen-to-square
-										form(method='post', action='/stokmobil/delete/#{row.id}')
+										form(method='post', action='/stokmobil/delete/#{row.id}').px-0
 											input(type="hidden",name="_method", value="DELETE")
 											button.btn.btn-danger.col-sm-12.mt-2.col-12(type='submit') Hapus | 
 												i.fa-solid.fa-trash-can

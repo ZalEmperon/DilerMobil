@@ -8,7 +8,6 @@ html
 		meta(charset='UTF-8')
 		meta(http-equiv='X-UA-Compatible' content='IE=edge')
 		meta(name='viewport' content='width=device-width, initial-scale=1.0')
-		title DealerCar
 		link(rel='preconnect' href='https://fonts.googleapis.com')
 		link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
 		link(href='https://fonts.googleapis.com/css2?family=Manrope:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' rel='stylesheet')
@@ -40,28 +39,28 @@ html
 				.col-sm-8.p-0.col-md-8
 					.loginscreen.shadow
 				.col-sm-4.p-0.col-md-4.d-flex.align-items-center
-					.container.px-5
+					.container.px-5.py-3
+						button(onclick='fungsiback()').btn
+							i.fa-solid.fa-left-long.fs-4
 						form(action="/gate/",method="post").mt-4
+							p.fw-bold.judul.text-center LOGIN
 							- if (messages.msg_error) 
-								.alert.alert-danger.alert-dismissable 
-									button.close(type='button', data-bs-dismiss='alert', aria-hidden='true') 
-										| ×
+								.alert.alert-danger.alert-dismissible.fade.show(role="alert")
+									button.btn-close(type='button', data-bs-dismiss='alert', aria-hidden='true')
 									h4
-										i.icon.fa.fa-ban
+										i.icon.fa.fa-ban 
 										| Alert! 
 									| !{messages.msg_error}
 							- if (messages.msg_info) 
-								.alert.alert-success.alert-dismissable 
-										button.close(type='button', data-bs-dismiss='alert', aria-hidden='true') 
-												| ×
-											h4
-												i.icon.fa.fa-ban
-												| Success! 
-											| !{messages.msg_info}
-							p.fw-bold.judul.text-center LOGIN
+								.alert.alert-success.alert-dismissible.fade.show(role="alert")
+									button.btn-close(type='button', data-bs-dismiss='alert', aria-hidden='true')
+										h4
+											i.icon.fa.fa-ban 
+											| Success! 
+										| !{messages.msg_info}
 							.mt-4
 								label Email
-								input(type="email",placeholder="Email",name="email" required).form-control
+								input(type="email",placeholder="Meow@email.com",name="email" required).form-control
 							.mt-4
 								label Password
 								.input-group
@@ -89,4 +88,7 @@ html
 				icon.toggleClass('fa-eye-slash fa-eye');
 			});
 		});
+		function fungsiback(){
+			window.location.replace('http://localhost:3000/')
+		}
 		

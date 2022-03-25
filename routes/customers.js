@@ -138,7 +138,7 @@ router.put(
   }
 );
 
-router.post("/add", authentication_mdl.is_login, function (req, res, next) {
+router.post("/add", function (req, res, next) {
   req.assert("name", "Please fill the name").notEmpty();
   var errors = req.validationErrors();
   if (!errors) {
@@ -147,7 +147,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
     v_address = req.sanitize("address").escape().trim();
     v_phone = req.sanitize("phone").escape();
     v_tanggal_pembelian = req.sanitize("tanggal_pembelian");
-    v_pilihan_beli = req.sanitize("pilihan_beli").escape();
+    v_pilihan_beli = req.sanitize("pilihan_beli");
 
     var customer = {
       name: v_name,
@@ -177,7 +177,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
               session_store: req.session,
             });
           } else {
-            req.flash("msg_info", "Create customer success");
+            req.flash("msg_info", "Pesanan Sudah dikirim");
             res.redirect("/customers");
           }
         }
@@ -238,7 +238,7 @@ router.get("/beli/(:id)", function (req, res, next) {
   });
 });
 
-router.get("/add", authentication_mdl.is_login, function (req, res, next) {
+router.get("/tambah", authentication_mdl.is_login, function (req, res, next) {
   req.getConnection(function (err, connection) {
     var query = connection.query(
       "SELECT * FROM stokmobil",
