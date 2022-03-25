@@ -5,13 +5,17 @@ var session_store;
 router.get('/', function(req, res, next) {
 	res.redirect('/stokmobil');
 });
-
-router.get('/customers', function(req, res, next) {
+router.get('/', function(req, res, next) {
 	res.redirect('/customers');
 });
 
-router.get('/login',function(req,res,next){
-	res.render('main/login',{title:"Login Page"});
+router.get('/gate',function(req,res,next){
+	if(req.session.email) {
+		res.redirect('/stokmobil');
+	}
+	else if(!req.session.email){
+		res.render('main/login',{title:"Login Page"});
+	}
 });
 
 router.get('/register',function(req,res,next){
@@ -55,7 +59,7 @@ router.post("/register", function (req, res, next) {
             });
           } else {
             req.flash("msg_info", "Create user success");
-            res.redirect("/login");
+            res.redirect("/gate");
           }
         }
       );
@@ -77,7 +81,7 @@ router.post("/register", function (req, res, next) {
   }
 });
 
-router.post('/login',function(req,res,next){
+router.post('/gate',function(req,res,next){
 	session_store=req.session;
 	req.assert('email', 'Please fill the Username').notEmpty();
 	req.assert('email', 'Email not valid').isEmail();
@@ -95,19 +99,20 @@ router.post('/login',function(req,res,next){
 					var errornya  = ("Error Selecting : %s ",err.code );  
 					console.log(err.code);
 					req.flash('msg_error', errornya); 
-					res.redirect('/login'); 
+					res.redirect('/gate'); 
 				}else
 				{
 					if(rows.length <=0)
 					{
 
 						req.flash('msg_error', "Wrong email address or password. Try again."); 
-						res.redirect('/login');
+						res.redirect('/gate');
 					}
 					else
 					{	
 						session_store.is_login = true;
 						session_store.email = req.body.email;
+						var sesi = session_store.is_login;
 						res.redirect('/stokmobil');
 					}
 				}
@@ -126,7 +131,7 @@ router.post('/login',function(req,res,next){
 		errors_detail += "</ul>"; 
 		console.log(errors_detail);
 		req.flash('msg_error', errors_detail); 
-		res.redirect('/login'); 
+		res.redirect('/gate'); 
 	}
 });
 

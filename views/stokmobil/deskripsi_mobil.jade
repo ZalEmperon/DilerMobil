@@ -1,0 +1,7 @@
+.modal-header.headernocenter(style="background-image:url(/images/upload/#{data.gambar_mobil});height:200px;width:100.1%;background-repeat: no-repeat;background-size: cover;background-position:center;")
+  button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+.modal-body
+  p.h1.text-dark.fw-bold #{data.nama_mobil}
+  p.text-dark Tersedia : #{data.jumlah_mobil}
+  p.text-dark Tipe Mobil :#{data.tipe_mobil}
+  p.text-dark Harga Mobil :#{data.harga_mobil}

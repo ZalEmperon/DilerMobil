@@ -9,13 +9,14 @@ const check = require('express-validator/check').check;
 const validationResult = require('express-validator/check').validationResult;
 var mv = require("mv");
 var authentication_mdl = require("../middlewares/authentication");
+var bodyParser = require('body-parser')
 var session_store;
 /* GET Customer page. */
 
 router.get("/", function (req, res, next) {
   req.getConnection(function (err, connection) {
     var query = connection.query(
-      "SELECT DISTINCT * FROM stokmobil",
+      "SELECT * FROM stokmobil",
       function (err, rows) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
@@ -239,4 +240,37 @@ router.get("/add", authentication_mdl.is_login, function (req, res, next) {
   });
 });
 
+router.get("/deskripsi/(:id)", function (req, res, next) {
+  req.getConnection(function (err, connection) {
+    var query = connection.query(
+      "SELECT * FROM stokmobil where id= "+req.params.id,
+      function (err, rows) {
+        if (err) var errornya = ("Error Selecting : %s ", err);
+        req.flash("msg_error", errornya);
+        res.render("stokmobil/deskripsi_mobil", {
+          title: "Stok Mobil",
+          data: rows[0],
+          session_store: req.session,
+        });
+      }
+    );
+  });
+});
+
+router.get("/pencarian/", function (req, res, next) {
+  req.getConnection(function (err, connection) {
+    var query = connection.query(
+      "SELECT * FROM stokmobil where nama_mobil LIKE '%"+req.query.hasil+"%'",
+      function (err, rows) {
+        if (err) var errornya = ("Error Selecting : %s ", err);
+        req.flash("msg_error", errornya);
+        res.render("stokmobil/list", {
+          title: "Stok Mobil",
+          data: rows,
+          session_store: req.session,
+        });
+      }
+    );
+  });
+});
 module.exports = router;

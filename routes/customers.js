@@ -4,7 +4,7 @@ var authentication_mdl = require("../middlewares/authentication");
 var session_store;
 /* GET Customer page. */
 
-router.get("/cs", authentication_mdl.is_login, function (req, res, next) {
+router.get("/",authentication_mdl.is_login, function (req, res, next) {
   req.getConnection(function (err, connection) {
     var query = connection.query(
       "SELECT * FROM customer",
@@ -40,10 +40,10 @@ router.delete(
             if (err) {
               var errors_detail = ("Error Delete : %s ", err);
               req.flash("msg_error", errors_detail);
-              res.redirect("/customers/cs");
+              res.redirect("/customers");
             } else {
               req.flash("msg_info", "Delete Customer Success");
-              res.redirect("/customers/cs");
+              res.redirect("/customers");
             }
           }
         );
@@ -63,11 +63,11 @@ router.get(
           if (err) {
             var errornya = ("Error Selecting : %s ", err);
             req.flash("msg_error", errors_detail);
-            res.redirect("/customers/cs");
+            res.redirect("/customers");
           } else {
             if (rows.length <= 0) {
               req.flash("msg_error", "Customer can't be find!");
-              res.redirect("/customers/cs");
+              res.redirect("/customers");
             } else {
               console.log(rows);
               res.render("customer/edit", {
@@ -119,7 +119,7 @@ router.put(
               });
             } else {
               req.flash("msg_info", "Update customer success");
-              res.redirect("/customers/cs");
+              res.redirect("/customers");
             }
           }
         );
@@ -142,12 +142,12 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
   req.assert("name", "Please fill the name").notEmpty();
   var errors = req.validationErrors();
   if (!errors) {
-    v_name = req.body("name").escape().trim();
-    v_email = req.body("email").escape().trim();
-    v_address = req.body("address").escape().trim();
-    v_phone = req.body("phone").escape();
-    v_tanggal_pembelian = req.body("v_tanggal_pembelian").escape();
-    v_pilihan_beli = req.body("pilihan_beli").escape();
+    v_name = req.sanitize("name").escape().trim();
+    v_email = req.sanitize("email").escape().trim();
+    v_address = req.sanitize("address").escape().trim();
+    v_phone = req.sanitize("phone").escape();
+    v_tanggal_pembelian = req.sanitize("tanggal_pembelian");
+    v_pilihan_beli = req.sanitize("pilihan_beli").escape();
 
     var customer = {
       name: v_name,
@@ -178,7 +178,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
             });
           } else {
             req.flash("msg_info", "Create customer success");
-            res.redirect("/customers/cs");
+            res.redirect("/customers");
           }
         }
       );
@@ -238,7 +238,7 @@ router.get("/beli/(:id)", function (req, res, next) {
   });
 });
 
-router.get("/add", function (req, res, next) {
+router.get("/add", authentication_mdl.is_login, function (req, res, next) {
   req.getConnection(function (err, connection) {
     var query = connection.query(
       "SELECT * FROM stokmobil",
