@@ -43,11 +43,11 @@ type koneksi : single,pool and request
 -------------------------------------------*/
 app.use(
     connection(mysql,{
-        host: 'localhost',
+        host: 'containers-us-west-34.railway.app',
         user: 'root', // your mysql user
-        password : '', // your mysql password
-        port : 3306, //port mysql
-        database:'data' // your database name
+        password : 'fzNmLWECNL4CxvVekPGU', // your mysql password
+        port : 6405, //port mysql
+        database:'railway' // your database name
     },'pool') //or single
 );
 app.use('/', index);
