@@ -14,6 +14,7 @@ var expressValidator = require('express-validator');
 var methodOverride = require('method-override');
 var connection = require('express-myconnection');
 var mysql = require('mysql');
+require('dotenv').config({ path: '.env' })
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,11 +44,11 @@ type koneksi : single,pool and request
 -------------------------------------------*/
 app.use(
     connection(mysql,{
-        host: 'containers-us-west-34.railway.app',
-        user: 'root', // your mysql user
-        password : 'fzNmLWECNL4CxvVekPGU', // your mysql password
-        port : 6405, //port mysql
-        database:'railway' // your database name
+        host: process.env.MYSQLHOST,
+        user: process.env.MYSQLUSER, // your mysql user
+        password : process.env.MYSQLPASSWORD, // your mysql password
+        port : process.env.MYSQLPORT, //port mysql
+        database:process.env.MYSQLDATABASE // your database name
     },'pool') //or single
 );
 app.use('/', index);
