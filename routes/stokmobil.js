@@ -15,6 +15,7 @@ var session_store;
 
 router.get("/", function (req, res, next) {
   req.getConnection(function (err, connection) {
+    console.log(err)
     var query = connection.query(
       "SELECT * FROM stokmobil",
       function (err, rows) {
@@ -26,7 +27,8 @@ router.get("/", function (req, res, next) {
           session_store: req.session,
         });
       }
-    );
+      );
+      console.log("Error di", err)
   });
 });
 
