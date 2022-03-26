@@ -14,7 +14,7 @@ var expressValidator = require('express-validator');
 var methodOverride = require('method-override');
 var connection = require('express-myconnection');
 var mysql = require('mysql');
-require('dotenv');
+require('dotenv').config({path: '.env'});
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
