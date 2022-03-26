@@ -94,12 +94,16 @@ router.put(
       v_email = req.sanitize("email").escape().trim();
       v_address = req.sanitize("address").escape().trim();
       v_phone = req.sanitize("phone").escape();
+      v_tanggal_pembelian = req.sanitize("tanggal_pembelian");
+      v_pilihan_beli = req.sanitize("pilihan_beli");
 
       var customer = {
         name: v_name,
         address: v_address,
         email: v_email,
         phone: v_phone,
+        tanggal_pembelian: v_tanggal_pembelian,
+        pilihan_beli: v_pilihan_beli,
       };
 
       var update_sql = "update customer SET ? where id = " + req.params.id;
@@ -116,9 +120,11 @@ router.put(
                 address: req.param("address"),
                 email: req.param("email"),
                 phone: req.param("phone"),
+                tanggal_pembelian: req.param("tanggal_pembelian"),
+                pilihan_beli: req.param("pilihan_beli"),
               });
             } else {
-              req.flash("msg_info", "Update customer success");
+              req.flash("msg_info", "Update Pembeli berhasil");
               res.redirect("/customers");
             }
           }
@@ -260,6 +266,40 @@ router.get("/tambah", authentication_mdl.is_login, function (req, res, next) {
             });
           }
         }
+      }
+    );
+  });
+});
+
+router.get("/deskripsi/(:id)", function (req, res, next) {
+  req.getConnection(function (err, connection) {
+    var query = connection.query(
+      "SELECT * FROM customer where id= "+req.params.id,
+      function (err, rows) {
+        if (err) var errornya = ("Error Selecting : %s ", err);
+        req.flash("msg_error", errornya);
+        res.render("customer/deskripsi_customer", {
+          title: "Stok Mobil",
+          data: rows[0],
+          session_store: req.session,
+        });
+      }
+    );
+  });
+});
+
+router.get("/pencarian/", function (req, res, next) {
+  req.getConnection(function (err, connection) {
+    var query = connection.query(
+      "SELECT * FROM customer where name LIKE '%"+req.query.hasil+"%'",
+      function (err, rows) {
+        if (err) var errornya = ("Error Selecting : %s ", err);
+        req.flash("msg_error", errornya);
+        res.render("customer/list", {
+          title: "Stok Mobil",
+          data: rows,
+          session_store: req.session,
+        });
       }
     );
   });

@@ -40,16 +40,14 @@ html
 					.loginscreen.shadow
 				.col-sm-4.p-0.col-md-4.d-flex.align-items-center
 					.container.px-5.py-3
-						button(onclick='fungsiback()').btn
-							i.fa-solid.fa-left-long.fs-4
 						form(action="/gate/",method="post").mt-4
 							p.fw-bold.judul.text-center LOGIN
 							- if (messages.msg_error) 
 								.alert.alert-danger.alert-dismissible.fade.show(role="alert")
 									button.btn-close(type='button', data-bs-dismiss='alert', aria-hidden='true')
 									h4
-										i.icon.fa.fa-ban 
-										| Alert! 
+										i.icon.fa.fa-ban
+										|  Alert! 
 									| !{messages.msg_error}
 							- if (messages.msg_info) 
 								.alert.alert-success.alert-dismissible.fade.show(role="alert")
@@ -60,11 +58,11 @@ html
 										| !{messages.msg_info}
 							.mt-4
 								label Email
-								input(type="email",placeholder="Meow@email.com",name="email" required).form-control
+								input(type="email",placeholder="Meow@email.com",name="email").form-control
 							.mt-4
 								label Password
 								.input-group
-									input(type="password",placeholder="Password",name="password" required).form-control
+									input(type="password",placeholder="Password",name="password").form-control
 									.input-group-append
 										span.input-group-text.rounded-0.rounded-end
 											a(href="#").text-decoration-none.toggle_hide_password
@@ -72,7 +70,7 @@ html
 							.col-12
 								button(type="submit" style="width:100%;background-color: #8BC6EC; background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);").btn.btn-success.btn-block.btn-flat.my-4.border-0.fw-bold
 									| Log In
-							.d-flex.flex-row.bd-highlight.mb-3
+							.mb-3
 								p Belum punya akun? 
 									a.text-primary(href='/register' style='text-decoration:none;') Buat Akun Disini
 	script(type='text/javascript', src='/javascripts/jquery.js')
@@ -88,7 +86,3 @@ html
 				icon.toggleClass('fa-eye-slash fa-eye');
 			});
 		});
-		function fungsiback(){
-			window.location.replace('http://localhost:3000/')
-		}
-		

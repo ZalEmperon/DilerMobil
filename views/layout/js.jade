@@ -15,13 +15,24 @@ script.
         }
       });
     });
+    $('.detailscus').click(function() {
+      var id = $(this).data("id")
+      $.ajax({
+        url: "/customers/deskripsi/"+id,
+        data: {
+          id: id
+        },
+        success: function(data) {
+          $("#data-customer").html(data);
+          $("#modalDetailCus").modal('show');
+        }
+      });
+    });
   });
   tanggalan = new Date();
   tahun = tanggalan.getFullYear();
-  bulan = tanggalan.getMonth() + 1;
+  bulan = ('0'+(tanggalan.getMonth() + 1)).slice(-2) ;
   hari = tanggalan.getDate();
-  jam = tanggalan.getHours();
-  menit = tanggalan.getMinutes();
+  jam = ('0'+tanggalan.getHours()).slice(-2);
+  menit = ('0'+tanggalan.getMinutes()).slice(-2);
   document.getElementById("tanggal_pembelian").value = hari + "/" + bulan + "/" + tahun + " Pada Jam " + jam + ":" + menit;
-
-  

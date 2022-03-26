@@ -24,11 +24,11 @@ block content
 								| !{messages.msg_info}
 						.form-group.my-3
 							label
-								| Name
+								| Nama
 							input(type='text',value="#{data.name}",name='name',placeholder='Enter Name', autofocus).form-control
 						.form-group.my-3
 							label
-								| Address
+								| Alamat
 							input(type='text',value="#{ (address == undefined) ? data.address : address }",name='address',placeholder='Enter address').form-control
 						.form-group.my-3
 							label
@@ -36,8 +36,16 @@ block content
 							input(type='text',value="#{ (email == undefined) ? data.email : email }",name='email',placeholder='Enter Address').form-control
 						.form-group.my-3
 							label
-								| Phone
+								| Nomor HP
 							input(type='text',value="#{ (phone == undefined) ? data.phone : phone }",name='phone',placeholder='Enter Phone').form-control
+						.form-group.my-3
+							label
+								| Pilihan Mobil yang dibeli
+							input(type='text',value="#{ (pilihan_beli == undefined) ? data.pilihan_beli : pilihan_beli }",name='pilihan_beli',placeholder='Enter Phone').form-control
+						.form-group.my-3
+							label
+								| Tanggal Pembelian
+							input(type='text',value="#{ (tanggal_pembelian == undefined) ? data.tanggal_pembelian : tanggal_pembelian }",name='tanggal_pembelian',placeholder='Enter Phone').form-control
 					.box-footer
 						input(type="hidden",name="_method", value="PUT")
 						button(type='submit').btn.btn-primary.me-3.my-2

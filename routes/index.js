@@ -5,6 +5,7 @@ var session_store;
 router.get('/', function(req, res, next) {
 	res.redirect('/stokmobil');
 });
+
 router.get('/', function(req, res, next) {
 	res.redirect('/customers');
 });
@@ -19,7 +20,12 @@ router.get('/gate',function(req,res,next){
 });
 
 router.get('/register',function(req,res,next){
-	res.render('main/register',{title:"Register Page"});
+	if(req.session.email) {
+		res.redirect('/stokmobil');
+	}
+	else if(!req.session.email){
+		res.render('main/register',{title:"Register Page"});
+	}
 });
 
 router.post("/register", function (req, res, next) {
@@ -83,9 +89,9 @@ router.post("/register", function (req, res, next) {
 
 router.post('/gate',function(req,res,next){
 	session_store=req.session;
-	req.assert('email', 'Please fill the Username').notEmpty();
-	req.assert('email', 'Email not valid').isEmail();
-	req.assert('password', 'Please fill the Password').notEmpty();
+	req.assert('email', 'Mohon Isi Kolom Email').notEmpty();
+	req.assert('email', 'Email Tidak Valid').isEmail();
+	req.assert('password', 'Mohon Isi Kolom Password').notEmpty();
 	var errors = req.validationErrors();
 	if (!errors) {
 		req.getConnection(function(err,connection){
@@ -112,7 +118,6 @@ router.post('/gate',function(req,res,next){
 					{	
 						session_store.is_login = true;
 						session_store.email = req.body.email;
-						var sesi = session_store.is_login;
 						res.redirect('/stokmobil');
 					}
 				}

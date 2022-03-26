@@ -23,8 +23,9 @@ block content
 				|  Tambah Mobil
 		br
 		form.d-flex.mb-4(action='/stokmobil/pencarian/' method='GET')
-			i.fa.fa-search.text-center.pt-2.px-3
-			input#search.form-control.me-4(type='search' placeholder='Cari Mobil' name='hasil' aria-label='Search')
+			input#search.form-control.rounded-0.rounded-start(type='search' placeholder='Cari Mobil' name='hasil' aria-label='Search')
+			button(type='submit').btn.btn-primary.rounded-0.rounded-end
+				i.fa.fa-search.text-center.pt-2.px-3
 		.modal#modalDetail.fade
 			.modal-dialog.modal-dialog-centered
 				#data-mobil.modal-content.border-0
@@ -39,12 +40,12 @@ block content
 				| !{messages.msg_error}
 			else
 				for row, index in data
-					.col-sm-4.col-6.my-3
+					.col-sm-3.col-6.my-3
 						.card.shadow.rounded-3(style='width:100%;')
 							if row.gambar_mobil
-								img( src="/images/upload/#{row.gambar_mobil}").card-img-top.rounded-top-3
+								img( src="/images/upload/#{row.gambar_mobil}").card-img-top.rounded-top-3.shadow-sm
 							else
-								img( src="/images/carro.jpg").card-img-top.rounded-top-3
+								img( src="/images/carro.jpg").card-img-top.rounded-top-3.shadow-sm
 							.card-body
 								h5.card-title.fw-bold.judul_mobil #{row.nama_mobil}
 								p.card-text
@@ -55,7 +56,7 @@ block content
 									if session_store.is_login
 										a(href='/stokmobil/edit/#{row.id}').btn.btn-primary.col-sm-11.col-11.mt-2 Edit | 
 											i.fa-solid.fa-pen-to-square
-										form(method='post', action='/stokmobil/delete/#{row.id}').px-0
+										form(method='post', action='/stokmobil/delete/#{row.id}')
 											input(type="hidden",name="_method", value="DELETE")
 											button.btn.btn-danger.col-sm-12.mt-2.col-12(type='submit') Hapus | 
 												i.fa-solid.fa-trash-can

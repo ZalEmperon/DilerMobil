@@ -4,13 +4,13 @@ nav.navbar.navbar-expand-lg.navbar-light.shadow(style='background-color: #001444
     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
-      ul.navbar-nav
+      ul.navbar-nav.ms-auto
         li.nav-item
-          a.nav-link.active(aria-current='page' href='#') Beranda
+          a.nav-link.active.text-white(aria-current='page' href='/') Beranda
         li.nav-item
-          a.nav-link(href='/stokmobil') Mobil
+          a.nav-link.text-white(href='/stokmobil') Mobil
         if session_store.is_login
           li.nav-item
-            a.nav-link(href='/customers') Customer
+            a.nav-link.text-white(href='/customers') Customer
           li.nav-item
-            a.nav-link(href='/logout') Logout
+            a.nav-link.text-white.fw-bold(href='/logout') Logout
