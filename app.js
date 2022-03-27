@@ -13,9 +13,11 @@ var customers = require('./routes/customers');
 var expressValidator = require('express-validator');
 var methodOverride = require('method-override');
 var connection = require('express-myconnection');
-var mysql = require('mysql');
+var mysql = require('mysql2');
 require('dotenv').config({path: '.env'});
 var app = express();
+// const pgp = require('pg-promise')(/* options */);
+// const db = pgp('postgres://root:@localhost:3306/data');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
