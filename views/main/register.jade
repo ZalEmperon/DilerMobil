@@ -43,21 +43,19 @@ html
 					form(action="/register/",method="post").mt-4
 						p.fw-bold.judul.text-center DAFTAR AKUN
 						- if (messages.msg_error) 
-							.alert.alert-danger.alert-dismissable 
+							.alert.alert-danger.alert-dismissible 
 								button.close(type='button', data-bs-dismiss='alert', aria-hidden='true') 
-									| ×
-								h4
-									i.icon.fa.fa-ban
-									| Alert! 
-								| !{messages.msg_error}
+									h4
+										i.icon.fa.fa-ban
+										|  Peringatan 
+									| !{messages.msg_error}
 						- if (messages.msg_info) 
-							.alert.alert-success.alert-dismissable 
-									button.close(type='button', data-bs-dismiss='alert', aria-hidden='true') 
-											| ×
-										h4
-											i.icon.fa.fa-ban
-											| Success! 
-										| !{messages.msg_info}
+							.alert.alert-success.alert-dismissible 
+								button.close(type='button', data-bs-dismiss='alert', aria-hidden='true') 
+									h4
+										i.icon.fa.fa-ban
+										|  Berhasil 
+									| !{messages.msg_info}
 						.mt-4
 							label Nama
 							input(type="text",placeholder="Masukan Nama",name="name" required).form-control

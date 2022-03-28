@@ -15,7 +15,7 @@ router.get('/gate',function(req,res,next){
 		res.redirect('/stokmobil');
 	}
 	else if(!req.session.email){
-		res.render('main/login',{title:"Login Page"});
+		res.render('main/login',{title:"Login AutoMovil"});
 	}
 });
 
@@ -24,15 +24,15 @@ router.get('/register',function(req,res,next){
 		res.redirect('/stokmobil');
 	}
 	else if(!req.session.email){
-		res.render('main/register',{title:"Register Page"});
+		res.render('main/register',{title:"Register AutoMovil"});
 	}
 });
 
 router.post("/register", function (req, res, next) {
-  req.assert("name", "Please fill the name").notEmpty();
-	req.assert("email", "Please fill the email").notEmpty();
-	req.assert("phone", "Please fill the phone").notEmpty();
-	req.assert("password", "Please fill the password").notEmpty();
+  req.assert("name", "Mohon Isi kolom Nama").notEmpty();
+	req.assert("email", "Mohon Isi kolom Email").notEmpty();
+	req.assert("phone", "Mohon Isi kolom Nomor HP").notEmpty();
+	req.assert("password", "Mohon Isi kolom Password").notEmpty();
   var errors = req.validationErrors();
   if (!errors) {
     v_name = req.sanitize("name").escape().trim();
@@ -64,7 +64,7 @@ router.post("/register", function (req, res, next) {
               session_store: req.session,
             });
           } else {
-            req.flash("msg_info", "Create user success");
+            req.flash("msg_info", "User baru berhasil dibuat");
             res.redirect("/gate");
           }
         }
@@ -72,7 +72,7 @@ router.post("/register", function (req, res, next) {
     });
   } else {
     console.log(errors);
-    errors_detail = "<p>Sory there are error</p><ul>";
+    errors_detail = "<p>Maaf ada Error</p><ul>";
     for (i in errors) {
       error = errors[i];
       errors_detail += "<li>" + error.msg + "</li>";
@@ -111,7 +111,7 @@ router.post('/gate',function(req,res,next){
 					if(rows.length <=0)
 					{
 
-						req.flash('msg_error', "Wrong email address or password. Try again."); 
+						req.flash('msg_error', "Email atau Password salah."); 
 						res.redirect('/gate');
 					}
 					else
@@ -127,7 +127,7 @@ router.post('/gate',function(req,res,next){
 	}
 	else
 	{
-		errors_detail = "<p>Sory there are error</p><ul>";
+		errors_detail = "<p>Maaf ada Error</p><ul>";
 		for (i in errors) 
 		{ 
 			error = errors[i]; 

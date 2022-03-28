@@ -1,16 +1,16 @@
 nav.navbar.navbar-expand-lg.navbar-light.shadow(style='background-color: #001444;background-image: linear-gradient(270deg, #001444 0%, #16A085 90%);')
   .container.py-3
-    a.navbar-brand.fw-bold(href='#') DealerCar
+    a.navbar-brand.fw-bold(href='#') AutoMovil
     button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
       ul.navbar-nav.ms-auto
         li.nav-item
-          a.nav-link.active.text-white(aria-current='page' href='/') Beranda
+          a.nav-link.active.text-white(aria-current='page' href='/stokmobil') Beranda
         li.nav-item
-          a.nav-link.text-white(href='/stokmobil') Mobil
+          a.nav-link.text-white(href='/stokmobil#mobil') Mobil
         if session_store.is_login
           li.nav-item
-            a.nav-link.text-white(href='/customers') Customer
+            a.nav-link.text-white(href='/customers#custom') Customer
           li.nav-item
             a.nav-link.text-white.fw-bold(href='/logout') Logout

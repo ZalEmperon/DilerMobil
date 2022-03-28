@@ -7,12 +7,12 @@ block content
         .col-xs-6
             .box-body
                 - if (messages.msg_error)
-                    .alert.alert-danger.alert-dismissable
-                        button.close(type='button', data-dismiss='alert', aria-hidden='true')
+                    .alert.alert-danger.alert-dismissible
+                        button.close(type='button', data-bs-dismiss='alert', aria-hidden='true')
                             | ×
                         h4
                             i.icon.fa.fa-ban
-                            | Alert!
+                            |  Peringatan
                         | !{messages.msg_error}
                 .form-group.my-3
                     label

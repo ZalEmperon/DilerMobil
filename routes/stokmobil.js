@@ -21,7 +21,7 @@ router.get("/", function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("stokmobil/list", {
-          title: "Stok Mobil",
+          title: "Mobil | AutoMovil",
           data: rows,
           session_store: req.session,
         });
@@ -38,7 +38,7 @@ router.get("/cari/(:tipe)", function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("stokmobil/list", {
-          title: "Stok Mobil",
+          title: "Tipe | Automovil",
           data: rows,
           session_store: req.session,
         });
@@ -52,18 +52,17 @@ router.delete("/delete/(:id)", authentication_mdl.is_login, function (req, res, 
     var stokmobilid = {
       id: req.params.id,
     };
-
+    const nama_gambar = req.body.gambaran;
     var delete_sql = "delete from stokmobil where ?";
     req.getConnection(function (err, connection) {
-      var query = connection.query(
-        delete_sql,
-        stokmobilid,
-        function (err, result) {
+      var query = connection.query(delete_sql, stokmobilid, function (err, result) {
           if (err) {
             var errors_detail = ("Error Delete : %s ", err);
             req.flash("msg_error", errors_detail);
             res.redirect("/stokmobil");
           } else {
+            const imagePath = `./public/images/upload/${nama_gambar}`;
+            fs.unlinkSync(imagePath);
             req.flash("msg_info", "Data Mobil Berhasil Dihapus");
             res.redirect("/stokmobil");
           }
@@ -89,7 +88,7 @@ router.get("/edit/(:id)", authentication_mdl.is_login, function (req, res, next)
           } else {
             console.log(rows);
             res.render("stokmobil/edit", {
-              title: "Edit ",
+              title: "Edit Mobil",
               data: rows[0],
               session_store: req.session,
             });
@@ -147,7 +146,7 @@ router.put("/edit/(:id)", authentication_mdl.is_login, function (req, res, next)
               gambar_mobil: req.param("gambar_mobil"),
             });
           } else {
-            req.flash("msg_info", "Update stokmobil success");
+            req.flash("msg_info", "Mobil Berhasil diupdate");
             res.redirect("/stokmobil");
           }
         }
@@ -155,7 +154,7 @@ router.put("/edit/(:id)", authentication_mdl.is_login, function (req, res, next)
     });
   } else {
     console.log(errors);
-    errors_detail = "<p>Sory there are error</p><ul>";
+    errors_detail = "<p>Maaf ada Error</p><ul>";
     for (i in errors) {
       error = errors[i];
       errors_detail += "<li>" + error.msg + "</li>";
@@ -205,7 +204,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
               session_store: req.session,
             });
           } else {
-            req.flash("msg_info", "Create stokmobil success");
+            req.flash("msg_info", "Data Mobil Berhasil ditambahkan");
             res.redirect("/stokmobil");
           }
         }
@@ -213,7 +212,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
     });
   } else {
     console.log(errors);
-    errors_detail = "<p>Sory there are error</p><ul>";
+    errors_detail = "<p>Maaf ada Error</p><ul>";
     for (i in errors) {
       error = errors[i];
       errors_detail += "<li>" + error.msg + "</li>";
@@ -230,7 +229,7 @@ router.post("/add", authentication_mdl.is_login, function (req, res, next) {
 
 router.get("/add", authentication_mdl.is_login, function (req, res, next) {
   res.render("stokmobil/add-stokmobil", {
-    title: "Add New stokmobil",
+    title: "Tambah Mobil",
     nama_mobil: "",
     jumlah_mobil: "",
     tipe_mobil: "",
@@ -248,7 +247,7 @@ router.get("/deskripsi/(:id)", function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("stokmobil/deskripsi_mobil", {
-          title: "Stok Mobil",
+          title: "Deskripsi | AutoMovil",
           data: rows[0],
           session_store: req.session,
         });
@@ -259,13 +258,13 @@ router.get("/deskripsi/(:id)", function (req, res, next) {
 
 router.get("/pencarian/", function (req, res, next) {
   req.getConnection(function (err, connection) {
-    var query = connection.query(
+    const query = connection.query(
       "SELECT * FROM stokmobil where nama_mobil LIKE '%"+req.query.hasil+"%'",
       function (err, rows) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("stokmobil/list", {
-          title: "Stok Mobil",
+          title: "Cari | AutoMovil",
           data: rows,
           session_store: req.session,
         });

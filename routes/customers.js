@@ -12,7 +12,7 @@ router.get("/",authentication_mdl.is_login, function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("customer/list", {
-          title: "Customers",
+          title: "Customers | Automovil",
           data: rows,
           session_store: req.session,
         });
@@ -40,10 +40,10 @@ router.delete(
             if (err) {
               var errors_detail = ("Error Delete : %s ", err);
               req.flash("msg_error", errors_detail);
-              res.redirect("/customers");
+              res.redirect("/customers#custom");
             } else {
-              req.flash("msg_info", "Delete Customer Success");
-              res.redirect("/customers");
+              req.flash("msg_info", "Data Pembeli berhasil dihapus");
+              res.redirect("/customers#custom");
             }
           }
         );
@@ -66,12 +66,12 @@ router.get(
             res.redirect("/customers");
           } else {
             if (rows.length <= 0) {
-              req.flash("msg_error", "Customer can't be find!");
+              req.flash("msg_error", "Pembeli tidak ditemukan");
               res.redirect("/customers");
             } else {
               console.log(rows);
               res.render("customer/edit", {
-                title: "Edit ",
+                title: "Edit Customers",
                 data: rows[0],
                 session_store: req.session,
               });
@@ -87,7 +87,6 @@ router.put(
   "/edit/(:id)",
   authentication_mdl.is_login,
   function (req, res, next) {
-    req.assert("name", "Please fill the name").notEmpty();
     var errors = req.validationErrors();
     if (!errors) {
       v_name = req.sanitize("name").escape().trim();
@@ -132,7 +131,7 @@ router.put(
       });
     } else {
       console.log(errors);
-      errors_detail = "<p>Sory there are error</p><ul>";
+      errors_detail = "<p>Maaf ada Error</p><ul>";
       for (i in errors) {
         error = errors[i];
         errors_detail += "<li>" + error.msg + "</li>";
@@ -145,7 +144,6 @@ router.put(
 );
 
 router.post("/add", function (req, res, next) {
-  req.assert("name", "Please fill the name").notEmpty();
   var errors = req.validationErrors();
   if (!errors) {
     v_name = req.sanitize("name").escape().trim();
@@ -183,15 +181,15 @@ router.post("/add", function (req, res, next) {
               session_store: req.session,
             });
           } else {
-            req.flash("msg_info", "Pesanan Sudah dikirim");
-            res.redirect("/customers");
+            req.flash("msg_info", "Pesanan berhasil disubmit");
+            res.redirect("/customers/berhasil");
           }
         }
       );
     });
   } else {
     console.log(errors);
-    errors_detail = "<p>Sory there are error</p><ul>";
+    errors_detail = "<p>Maaf ada Error</p><ul>";
     for (i in errors) {
       error = errors[i];
       errors_detail += "<li>" + error.msg + "</li>";
@@ -228,11 +226,12 @@ router.get("/beli/(:id)", function (req, res, next) {
           res.redirect("/stokmobil");
         } else {
           if (rows.length <= 0) {
-            req.flash("msg_error", "Customer can't be find!");
+            req.flash("msg_error", "Pembeli tidak ditemukan");
             res.redirect("/stokmobil");
           } else {
             console.log(rows);
             res.render("customer/add-customer", {
+              title: "Beli Mobil",
               data: rows[0],
               session_store: req.session,
               idelva:req.params.id,
@@ -255,12 +254,13 @@ router.get("/tambah", authentication_mdl.is_login, function (req, res, next) {
           res.redirect("/stokmobil");
         } else {
           if (rows.length <= 0) {
-            req.flash("msg_error", "Customer can't be find!");
+            req.flash("msg_error", "Pembeli tidak ditemukan");
             res.redirect("/stokmobil");
           } else {
             console.log(rows);
             res.render("customer/add-customer", {
-              data: rows[0],
+              title: "Tambah Pembeli",
+              data: rows,
               session_store: req.session,
               idelva:req.params.id,
             });
@@ -279,7 +279,7 @@ router.get("/deskripsi/(:id)", function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("customer/deskripsi_customer", {
-          title: "Stok Mobil",
+          title: "Deskripsi Mobil",
           data: rows[0],
           session_store: req.session,
         });
@@ -296,7 +296,7 @@ router.get("/pencarian/", function (req, res, next) {
         if (err) var errornya = ("Error Selecting : %s ", err);
         req.flash("msg_error", errornya);
         res.render("customer/list", {
-          title: "Stok Mobil",
+          title: "Customers | AutoMovil",
           data: rows,
           session_store: req.session,
         });
@@ -304,4 +304,9 @@ router.get("/pencarian/", function (req, res, next) {
     );
   });
 });
+
+router.get('/berhasil', function(req, res, next) {
+	res.render("customer/berhasil",{title: "Berhasil"});
+});
+
 module.exports = router;

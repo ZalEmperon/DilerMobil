@@ -1,6 +1,6 @@
 extends ../layout/base 
 block content 
-	.container.mb-5
+	.container.mb-5#custom
 		.modal#modalDetailCus.fade
 			.modal-dialog.modal-dialog-centered
 				#data-customer.modal-content.border-0
@@ -10,19 +10,23 @@ block content
 				button.btn-close(type='button', data-bs-dismiss='alert', aria-hidden='true')
 				h4
 					i.icon.fa.fa-check
-					| Success!
+					|  Berhasil
 				| !{messages.msg_info}
 		- if(messages.msg_error)
 			.alert.alert-danger.alert-dismissible
 				button.btn-close(type='button', data-bs-dismiss='alert', aria-hidden='true')
 				h4
 					i.icon.fa.fa-ban
-					| Alert!
+					|  Peringatan
 				| !{messages.msg_error}
 		a(href='/customers/tambah').pull-left.btn.btn-primary.my-3
 			i.fa.fa-plus 
 			|  Tambah Customer
-		.data-table
+		form.d-flex.mb-4.mt-3(action='/customers/pencarian/' method='GET')
+			input#search.form-control.rounded-0.rounded-start(type='search' placeholder='Cari Pembeli' name='hasil' aria-label='Search')
+			button(type='submit').btn.btn-primary.rounded-0.rounded-end
+				i.fa.fa-search.text-center.pt-2.px-3
+		.data-table.overflow-scroll
 			table.table.table-bordered
 				tr
 					th
@@ -52,13 +56,13 @@ block content
 								td #{row.tanggal_pembelian}
 								td
 									div(style='display:inline-block')
-										a(href='/customers/edit/#{row.id}').btn.btn-sm.btn-primary.ms-2
+										a(href='/customers/edit/#{row.id}').btn.btn-sm.btn-primary.ms-2.mt-2
 											i.fa.fa-edit
 									div(style='display:inline-block')
 										form(method='post', action='/customers/delete/#{row.id}').ms-2
 											input(type="hidden",name="_method", value="DELETE")
-											button.btn.btn-sm.btn-danger(type='submit')
+											button.btn.btn-sm.btn-danger(type='submit').mt-2
 												i.fa.fa-remove
 									div(style='display:inline-block')
-										a(data-id="#{row.id}" data-bs-toggle="modal").btn.btn-sm.btn-warning.ms-2.detailscus
+										a(data-id="#{row.id}" data-bs-toggle="modal").btn.btn-sm.btn-warning.ms-2.detailscus.mt-2
 											i.fa.fa-align-justify

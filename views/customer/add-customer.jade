@@ -7,12 +7,11 @@ block content
                 .col-xs-6
                     .box-body
                         - if (messages.msg_error)
-                            .alert.alert-danger.alert-dismissable
-                                button.close(type='button', data-dismiss='alert', aria-hidden='true')
-                                    | ×
+                            .alert.alert-danger.alert-dismissible
+                                button.close(type='button', data-bs-dismiss='alert', aria-hidden='true')
                                 h4
                                     i.icon.fa.fa-ban
-                                    | Alert!
+                                    |  Peringatan
                                 | !{messages.msg_error}
                         .form-group.my-3
                             label
@@ -42,7 +41,10 @@ block content
                             .form-group.my-3
                                 label
                                     | Pilihan Mobil
-                                input(type='text',name='pilihan_beli',placeholder='Masukan Mobil', required).form-control
+                                select(name="pilihan_beli" required).form-control
+                                    option(value="-" selected) --- Pilih Mobil ---
+                                    for row, index in data
+                                        option(value="#{row.nama_mobil}") #{row.nama_mobil}
                     .box-footer
                         button(type='submit').btn.btn-primary.me-3.my-2
                             | Submit
